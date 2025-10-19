@@ -49,8 +49,10 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
   const [checked, setChecked] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0 });
 
-  //speed:
-  
+  // Confusion matrix:
+  const [confusionMatrix, setConfusionMatrix] = useState(
+    Array(5).fill().map(() => Array(5).fill(0))
+  );
 
   const usedSentences = new Set();
 
@@ -93,41 +95,55 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
 
   const checkAnswer = () => {
     if (checked) return;
-
+  
     const acceptable = getAcceptableTones(sentence.pinyin_no_tone, sentence.tones);
     let correct = 0;
     let n_punctuation = 0;
-    const mistakes = [];
-
+  
     acceptable.forEach((validTones, i) => {
       const tone = sentence.tones[i];
       const guess = guesses[i];
-
+  
       if (tone === -1) {
         n_punctuation++;
         return;
       }
-
+  
       if (validTones.includes(guess)) {
         correct++;
-        // disabled mistakes until i think they can be nicely presented
-        // mistakes.push({ chosen: guess, expected: guess });
-      } else {
-        // mistakes.push({
-        //   sentence_id: sentence.id,
-        //   syllable_index: i,
-        //   pinyin: sentence.pinyin_no_tone[i],
-        //   expected: validTones,
-        //   chosen: guess,
-        //   context: sentence.chinese,
-        // });
-      }
+      } 
     });
-
+  
     const total = sentence.tones.length - n_punctuation;
     setScore({ correct, total });
     setChecked(true);
-    onUpdateStats(correct, total, mistakes);
+  
+    // ---- Confusion matrix update (fixed) ----
+    const newMatrix = confusionMatrix.map(row => [...row]); // clone
+  
+    acceptable.forEach((validTones, i) => {
+      const trueTone = sentence.tones[i];
+      const guess = guesses[i];
+  
+      if (trueTone === -1 || guess === 0) return; // skip punctuation or empty slots
+  
+      if (validTones.includes(guess)) {
+        // If the user's guess is *one of the acceptable tones*, count it as correct.
+        // We record a "correct" in the guessed-tone diagonal cell so we don't treat the
+        // *other* acceptable tone as a mistake.
+        newMatrix[guess - 1][guess - 1]++;
+      } else {
+        // Real confusion: guessed something that is not acceptable for this syllable
+        newMatrix[guess - 1][trueTone - 1]++;
+      }
+    });
+  
+    setConfusionMatrix(newMatrix);
+  
+    // Pass matrix along so parent/stats collector can use it (no-op if parent ignores it)
+    onUpdateStats(correct, total, newMatrix);
+
+    // console.table(newMatrix);
   };
 
   const handleKeyDown = (e) => {
@@ -158,9 +174,9 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
   const tokens = tokenizeChinese(sentence.chinese);
 
   return (
-    <div className="bg-white shadow-md rounded-2xl p-4 sm:p-6 text-center inline-block max-w-full lg:max-w-5xl">
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 sm:p-6 text-center inline-block max-w-full lg:max-w-5xl transition-colors duration-300">
       {/* Sentence url, very small to the right */}
-      <div className="text-xs text-gray-400 text-right mb-2">
+      <div className="text-xs text-gray-400 dark:text-gray-500 text-right mb-2">
         <a
           href={`https://tatoeba.org/eng/sentences/show/${sentence.id}`}
           target="_blank"
@@ -183,8 +199,7 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
         </a>
       </div>
       {/* English translation */}
-      <p className="text-gray-500 mb-3">{sentence.english}</p>
-
+      <p className="text-gray-600 dark:text-gray-300 mb-3">{sentence.english}</p>
       {/* Sentence wrapper */}
       <div className="overflow-x-auto">
         <div
@@ -200,7 +215,7 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
 
           {/* Pinyin */}
           {sentence.pinyin_no_tone.map((p, i) => (
-            <div key={`pinyin-${i}`} className="text-sm text-gray-400 text-center">
+           <div key={`pinyin-${i}`} className="text-sm text-gray-400 dark:text-gray-500 text-center">
               {p}
             </div>
           ))}
@@ -261,8 +276,7 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
         </button>
 
         <button
-          className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-lg transition"
-          onClick={loadRandomSentence}
+          className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-lg transition"          onClick={loadRandomSentence}
           title="Next (N)"
         >
           Next
@@ -271,7 +285,7 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
 
       {/* Score */}
       {checked && (
-        <p className="mt-4 text-lg">
+        <p className="mt-4 text-lg text-gray-800 dark:text-gray-100">
           Score: {score.correct}/{score.total} (
           {Math.round((score.correct / score.total) * 100)}%)
         </p>

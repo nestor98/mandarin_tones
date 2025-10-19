@@ -2,19 +2,19 @@ import React from 'react';
 
 // Tone marks table
 const TONE_MARKS = {
-  a: ['ā','á','ǎ','à'],
-  e: ['ē','é','ě','è'],
-  i: ['ī','í','ǐ','ì'],
-  o: ['ō','ó','ǒ','ò'],
-  u: ['ū','ú','ǔ','ù'],
-  ü: ['ǖ','ǘ','ǚ','ǜ']
+  a: ['ā', 'á', 'ǎ', 'à'],
+  e: ['ē', 'é', 'ě', 'è'],
+  i: ['ī', 'í', 'ǐ', 'ì'],
+  o: ['ō', 'ó', 'ǒ', 'ò'],
+  u: ['ū', 'ú', 'ǔ', 'ù'],
+  ü: ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
 };
 
 function addToneMark(syl, tone) {
   if (tone === 5 || tone < 1) return syl; // neutral
   if (!syl) return syl;
 
-  const vowels = ['a','e','o','i','u','ü'];
+  const vowels = ['a', 'e', 'o', 'i', 'u', 'ü'];
   for (let v of vowels) {
     const idx = syl.indexOf(v);
     if (idx >= 0) {
@@ -35,7 +35,15 @@ function addToneMark(syl, tone) {
  * @param {boolean} compact - use smaller buttons
  * @param {boolean} checked - whether the answer has been checked
  */
-export default function ToneSelector({ baseSyllable, selected, correct, onSelect, vertical, compact, checked }) {
+export default function ToneSelector({
+  baseSyllable,
+  selected,
+  correct,
+  onSelect,
+  vertical,
+  compact,
+  checked,
+}) {
   const tones = [1, 2, 3, 4, 5];
 
   // If no tone applies (tone === -1), skip rendering
@@ -45,24 +53,34 @@ export default function ToneSelector({ baseSyllable, selected, correct, onSelect
 
   const toneColor = (tone) => {
     if (!checked) {
-      // Not checked yet
-      return selected === tone ? 'bg-blue-200' : 'bg-gray-100';
+      return selected === tone
+        ? 'bg-blue-200 dark:bg-blue-600 text-gray-900 dark:text-white'
+        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100';
     }
 
     const correctTones = Array.isArray(correct) ? correct : [correct];
-    if (correctTones.includes(tone)) return 'bg-green-300';
-    if (tone === selected && !correctTones.includes(tone)) return 'bg-red-300';
-    return 'bg-gray-100';
+    if (correctTones.includes(tone))
+      return 'bg-green-300 dark:bg-green-600 text-gray-900 dark:text-white';
+    if (tone === selected && !correctTones.includes(tone))
+      return 'bg-red-300 dark:bg-red-600 text-gray-900 dark:text-white';
+    return 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100';
   };
 
   return (
-    <div className={`flex ${vertical ? 'flex-col' : 'flex-row'} justify-center gap-1`}>
+    <div
+      className={`flex ${vertical ? 'flex-col' : 'flex-row'} justify-center gap-1`}
+    >
       {tones.map((t) => (
         <button
           key={t}
           onClick={() => onSelect(t)}
-          className={`rounded text-sm ${toneColor(t)} 
-            ${compact ? 'h-6 px-2 min-w-[2.2rem]' : 'h-8 px-3 min-w-[2.5rem]'} transition`}
+          className={`
+            rounded text-sm font-medium
+            ${toneColor(t)} 
+            ${compact ? 'h-6 px-2 min-w-[2.2rem]' : 'h-8 px-3 min-w-[2.5rem]'}
+            transition-colors duration-200
+            hover:brightness-105 active:scale-[0.97]
+          `}
         >
           {addToneMark(baseSyllable, t)}
         </button>

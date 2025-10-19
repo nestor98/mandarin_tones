@@ -10,7 +10,7 @@ return (
             >
                 ✕
             </button>
-            <h2 className="text-xl font-semibold mb-4">About</h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">About</h2>
             <p className="text-sm text-gray-700">
                 Practice mandarin tones in context. Inspired by the tone trainer in <a href="https://www.dong-chinese.com/learn/sounds/pinyin/toneTrainer" target="_blank" rel="noreferrer" className="text-blue-500 underline">Dong Chinese</a>, where I was missing some examples with full sentences.
             </p>
