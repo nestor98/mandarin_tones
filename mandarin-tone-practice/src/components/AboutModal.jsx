@@ -15,7 +15,7 @@ return (
                 Practice mandarin tones in context. Inspired by the tone trainer in <a href="https://www.dong-chinese.com/learn/sounds/pinyin/toneTrainer" target="_blank" rel="noreferrer" className="text-blue-500 underline">Dong Chinese</a>, where I was missing some examples with full sentences.
             </p>
             <p className="text-sm text-gray-700 mt-3">
-                Sentence and translations are from the amazing <a href="https://tatoeba.org/" target="_blank" rel="noreferrer" className="text-blue-500 underline">Tatoeba Project</a>, licensed under{' '}
+                Sentences and translations are from the amazing <a href="https://tatoeba.org/" target="_blank" rel="noreferrer" className="text-blue-500 underline">Tatoeba Project</a>, licensed under{' '}
                 <a
                     href="https://creativecommons.org/licenses/by/2.0/fr/"
                     target="_blank"
@@ -36,8 +36,7 @@ return (
                 licenses.
             </p>
             <p className="text-xs text-gray-700 mt-3">
-                Audios were contributed by users <a href="https://tatoeba.org/es/user/profile/fucongcong" target="_blank" rel="noreferrer" className="text-blue-500 underline">fucongcong</a> and <a href="https://tatoeba.org/es/user/profile/GlossaMatik" target="_blank" rel="noreferrer" className="text-blue-500 underline">GlossaMatik</a>.
-                They don't have a license, so I am waiting for their permission to share it, for now, do not play the audios I guess :)
+                Audios are played directly from Tatoeba and were contributed by users <a href="https://tatoeba.org/es/user/profile/fucongcong" target="_blank" rel="noreferrer" className="text-blue-500 underline">fucongcong</a> and <a href="https://tatoeba.org/es/user/profile/GlossaMatik" target="_blank" rel="noreferrer" className="text-blue-500 underline">GlossaMatik</a>. 
             </p>
             <p className="text-xs text-gray-500 mt-4">
                 Created for personal and educational use.

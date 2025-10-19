@@ -2,7 +2,31 @@ import React, { useEffect, useState } from 'react';
 import ToneSelector from './ToneSelector';
 // import { ReactComponent as GearIcon } from '../assets/gear.svg';
 
-
+// -- source link:
+const SourceLink = ({ href, text, withArrow }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    className="underline hover:text-gray-600 inline-flex items-center"
+  >
+    {text}
+    {withArrow && (
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          className="w-3 h-3 ml-1"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z"
+            clipRule="evenodd"
+          />
+        </svg>
+    )}
+  </a>
+);
 
 // ---------- Utils ----------
 function normalizeNonChinese(text) {
@@ -174,34 +198,15 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
   const tokens = tokenizeChinese(sentence.chinese);
 
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 sm:p-6 text-center inline-block max-w-full lg:max-w-5xl transition-colors duration-300">
-      {/* Sentence url, very small to the right */}
-      <div className="text-xs text-gray-400 dark:text-gray-500 text-right mb-2">
-        <a
-          href={`https://tatoeba.org/eng/sentences/show/${sentence.id}`}
-          target="_blank"
-          rel="noreferrer"
-          className="underline hover:text-gray-600 inline-flex items-center"
-        >
-          source
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="w-3 h-3 ml-1"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </a>
-      </div>
-      {/* English translation */}
+<div className="w-full flex flex-col items-center p-4">
+  {/* Make this wrapper relative so we can position attribution absolutely inside it */}
+  <div className="relative inline-block max-w-full lg:max-w-5xl">
+    <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 sm:p-6 text-center transition-colors duration-300">        {/* English translation */}
       <p className="text-gray-600 dark:text-gray-300 mb-3">{sentence.english}</p>
       {/* Sentence wrapper */}
       <div className="overflow-x-auto">
+   
+   
         <div
           className="inline-grid justify-start gap-x-2 gap-y-1 min-w-max"
           style={{ gridTemplateColumns: `repeat(${tokens.length}, auto)` }}
@@ -212,13 +217,14 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
               {tok}
             </div>
           ))}
+          
 
           {/* Pinyin */}
-          {sentence.pinyin_no_tone.map((p, i) => (
+          {/* {sentence.pinyin_no_tone.map((p, i) => (
            <div key={`pinyin-${i}`} className="text-sm text-gray-400 dark:text-gray-500 text-center">
               {p}
             </div>
-          ))}
+          ))} */}
 
           {/* Tone selectors */}
           {tokens.map((tok, i) => {
@@ -283,6 +289,7 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
         </button>
       </div>
 
+
       {/* Score */}
       {checked && (
         <p className="mt-4 text-lg text-gray-800 dark:text-gray-100">
@@ -291,7 +298,25 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
         </p>
       )}
       
-      
     </div>
+    
+    {/* Attribution positioned absolutely below right corner */}
+    <div className="absolute -bottom-5 right-0 text-xs text-gray-400 dark:text-gray-500">
+      <SourceLink
+        href={`https://tatoeba.org/eng/sentences/show/${sentence.id}`}
+        text="Sentence"
+        className="no-underline hover:text-gray-600 dark:hover:text-gray-300"
+      />
+      {' '}by{' '}
+      <SourceLink
+        href={`https://tatoeba.org/user/profile/${sentence.audio_user}`}
+        text={`${sentence.audio_user}`}
+        withArrow
+        className="ml-1 no-underline hover:text-gray-600 dark:hover:text-gray-300"
+      />
+    </div>
+  </div>
+</div>
+    
   );
 }
