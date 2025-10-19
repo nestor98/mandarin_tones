@@ -12,35 +12,50 @@ const TONE_MARKS = {
 
 function addToneMark(syl, tone) {
   if (tone === 5 || tone < 1) return syl; // neutral
-  if (!syl) {
-    console.log('Adding tone: UNDEFINED!!');
-    return syl;
-  }
-  const vowels = ['a','e','o','i','u','ü'];
-  console.log('Adding tone mark:', syl, tone);
-  for (let v of vowels) {
+  if (!syl) return syl;
 
+  const vowels = ['a','e','o','i','u','ü'];
+  for (let v of vowels) {
     const idx = syl.indexOf(v);
     if (idx >= 0) {
-      const mark = TONE_MARKS[v][tone-1];
-      return syl.slice(0, idx) + mark + syl.slice(idx+1);
+      const mark = TONE_MARKS[v][tone - 1];
+      return syl.slice(0, idx) + mark + syl.slice(idx + 1);
     }
   }
   return syl;
 }
 
-export default function ToneSelector({ baseSyllable, selected, correct, onSelect, vertical, compact }) {
-  const tones = [1,2,3,4,5];
+/**
+ * ToneSelector
+ * @param {string} baseSyllable - the plain pinyin syllable (e.g. "hao")
+ * @param {number} selected - user's current guess
+ * @param {number|number[]} correct - accepted tone(s), or -1 if none
+ * @param {function} onSelect - callback(tone)
+ * @param {boolean} vertical - render buttons vertically
+ * @param {boolean} compact - use smaller buttons
+ * @param {boolean} checked - whether the answer has been checked
+ */
+export default function ToneSelector({ baseSyllable, selected, correct, onSelect, vertical, compact, checked }) {
+  const tones = [1, 2, 3, 4, 5];
+
+  // If no tone applies (tone === -1), skip rendering
+  if (correct === -1 || (Array.isArray(correct) && correct.includes(-1))) {
+    return null;
+  }
 
   const toneColor = (tone) => {
-    if (correct == null) return selected === tone ? 'bg-blue-200' : 'bg-gray-100';
-    if (tone === correct) return 'bg-green-300';
-    if (tone === selected && tone !== correct) return 'bg-red-300';
+    if (!checked) {
+      // Not checked yet
+      return selected === tone ? 'bg-blue-200' : 'bg-gray-100';
+    }
+
+    const correctTones = Array.isArray(correct) ? correct : [correct];
+    if (correctTones.includes(tone)) return 'bg-green-300';
+    if (tone === selected && !correctTones.includes(tone)) return 'bg-red-300';
     return 'bg-gray-100';
   };
 
   return (
-    
     <div className={`flex ${vertical ? 'flex-col' : 'flex-row'} justify-center gap-1`}>
       {tones.map((t) => (
         <button
