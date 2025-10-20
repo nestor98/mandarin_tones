@@ -7,7 +7,7 @@ import AboutModal from './components/AboutModal';
 import data from './data/sentences_mandarin_english.json';
 
 
-import tiaoData from "./data/diao.json";
+import diaoData from "./data/diao.json";
 import shengData from "./data/sheng.json";
 
 import AnimatedCharacter from './components/chars/AnimatedCharacter.jsx';
@@ -72,9 +72,9 @@ export default function App() {
 
 
       {/* ─── Animated logo top-left ─── */}
-      <div className="absolute top-3 left-3 flex gap-2 items-center z-20">
+      <div className="absolute top-3 left-3 pl-4 pt-1 flex gap-0 items-center z-20">
         <AnimatedCharacter data={shengData} size={50} delay={.0} /> 
-        <AnimatedCharacter data={tiaoData} size={50} delay={1.8} />
+        <AnimatedCharacter data={diaoData} size={50} delay={1.8} />
       </div>
 
 
