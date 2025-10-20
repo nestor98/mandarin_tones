@@ -5,7 +5,8 @@ Practice mandarin tones in context. Inspired by the tone trainer in <a href="htt
 
 
 ### Content
-- Sentences and translations are from the amazing [Tatoeba Project](https://tatoeba.org/), licensed under [CC BY 2.0 FR](https://creativecommons.org/licenses/by/2.0/fr) and [CC0](https://creativecommons.org/publicdomain/zero/1.0/) 
+- Sentences and translations are from the amazing [Tatoeba Project](https://tatoeba.org/), licensed under [CC BY 2.0 FR](https://creativecommons.org/licenses/by/2.0/fr) and [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+- The pinyin was computed with [pypinyin](https://github.com/mozillazg/python-pinyin). 
 - Audios are played directly from Tatoeba and were contributed by users <a href="https://tatoeba.org/es/user/profile/fucongcong" target="_blank" rel="noreferrer" className="text-blue-500 underline">fucongcong</a> and <a href="https://tatoeba.org/es/user/profile/GlossaMatik" target="_blank" rel="noreferrer" className="text-blue-500 underline">GlossaMatik</a>. 
 - The svg data for the "logo" is from [Makemeahanzi](https://github.com/skishore/makemeahanzi), with [this license](https://ftp.gnu.org/non-gnu/chinese-fonts-truetype/LICENSE)
 
