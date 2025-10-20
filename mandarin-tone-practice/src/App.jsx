@@ -3,7 +3,7 @@ import TonePractice from './components/TonePractice';
 import StatsBar from './components/StatsBar';
 import ConfusionMatrixDashboard from './components/ConfusionMatrixDashboard';
 import AboutModal from './components/AboutModal';
-import { db } from './db';
+// import { db } from './db';
 import data from './data/sentences_mandarin_english.json';
 
 export default function App() {
@@ -20,8 +20,6 @@ export default function App() {
   const [confusionMatrix, setConfusionMatrix] = useState(
     Array(5).fill().map(() => Array(5).fill(0))
   );
-
-  const SAVE_STATS = false;
 
   useEffect(() => {
     const root = document.documentElement;
@@ -43,22 +41,22 @@ export default function App() {
     // Update confusion matrix
     setConfusionMatrix(matrix);
 
-    if (SAVE_STATS) {
-      const today = new Date().toISOString().slice(0, 10);
-      await db.stats.add({ date: today, correct: correctDelta, total: totalDelta });
+    // if (SAVE_STATS) { // Disabled for now, i dont think its that useful
+    //   const today = new Date().toISOString().slice(0, 10);
+    //   await db.stats.add({ date: today, correct: correctDelta, total: totalDelta });
 
-      for (const m of mistakes) {
-        await db.mistakes.add({
-          date: new Date().toISOString(),
-          sentence_id: m.sentence_id,
-          syllable_index: m.syllable_index,
-          pinyin: m.pinyin,
-          expected: m.expected,
-          chosen: m.chosen,
-          context: m.context,
-        });
-      }
-    }
+    //   for (const m of mistakes) {
+    //     await db.mistakes.add({
+    //       date: new Date().toISOString(),
+    //       sentence_id: m.sentence_id,
+    //       syllable_index: m.syllable_index,
+    //       pinyin: m.pinyin,
+    //       expected: m.expected,
+    //       chosen: m.chosen,
+    //       context: m.context,
+    //     });
+    //   }
+    // }
   };
 
   return (
@@ -96,8 +94,7 @@ export default function App() {
 
 
           {showSpeedControl && (
-            <div className="w-44 mt-2 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md">
-              <label className="text-sm text-gray-700 dark:text-gray-300">
+      <div className="absolute top-full right-0 mt-2 w-44 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md z-50">              <label className="text-sm text-gray-700 dark:text-gray-300">
                 Speed: {speed.toFixed(1)}×
               </label>
               <input
