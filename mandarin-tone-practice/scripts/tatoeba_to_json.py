@@ -3,20 +3,20 @@ import re
 from pypinyin import pinyin, Style
 
 # ---- Input files ----
-PAIRS_FILE = "chinese-english.tsv"  # your format: group_id, chinese, eng_id, english
-AUDIO_FILE = "sentences_with_audio.csv"    # from Tatoeba
+PAIRS_FILE = "chinese-english.tsv"  # Tatoeba format: group_id, chinese, eng_id, english
+AUDIO_FILE = "sentences_with_audio.csv"    # also from Tatoeba
 OUTPUT_FILE = "sentences_mandarin_english.json"
 
 SAVE_ONLY_WITH_AUDIO = True # If False, saves all pairs, even without audio
 
 def normalize_non_chinese(text):
-            # 1. Merge spaced-out Latin letters: "J o h n" -> "John"
-            text = re.sub(r"((?:[A-Za-z]\s+){1,}[A-Za-z])",
-                        lambda m: m.group(0).replace(" ", ""), text)
-            # 2. Merge spaced-out digits: "1 0 0" -> "100"
-            text = re.sub(r"((?:\d\s+){1,}\d)",
-                        lambda m: m.group(0).replace(" ", ""), text)
-            return text
+    # 1. Merge spaced-out Latin letters: "J o h n" -> "John"
+    text = re.sub(r"((?:[A-Za-z]\s+){1,}[A-Za-z])",
+                lambda m: m.group(0).replace(" ", ""), text)
+    # 2. Merge spaced-out digits: "1 0 0" -> "100"
+    text = re.sub(r"((?:\d\s+){1,}\d)",
+                lambda m: m.group(0).replace(" ", ""), text)
+    return text
 
 # ---- Load available Mandarin audio ----
 # Structure: Sentence id [tab] Audio id [tab] Username [tab] License [tab] Attribution URL

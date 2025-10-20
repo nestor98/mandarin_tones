@@ -204,8 +204,7 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
     <div className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 sm:p-6 text-center transition-colors duration-300">        {/* English translation */}
       <p className="text-gray-600 dark:text-gray-300 mb-3">{sentence.english}</p>
       {/* Sentence wrapper */}
-      <div className="overflow-x-auto">
-   
+      <div className="overflow-x-auto pb-2">   
    
         <div
           className="inline-grid justify-start gap-x-2 gap-y-1 min-w-max"
