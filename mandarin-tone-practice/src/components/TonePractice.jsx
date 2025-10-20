@@ -96,6 +96,11 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
     setSentence(s);
     setGuesses(Array(s.pinyin_no_tone.length).fill(0));
     setChecked(false);
+    // Also clear the audio instance 
+    if (window.audioInstance) {
+      window.audioInstance.pause();
+      window.audioInstance = null;
+    }
   };
 
   const playAudio = () => {
@@ -281,7 +286,8 @@ export default function TonePractice({ sentences, onUpdateStats, playbackSpeed }
         </button>
 
         <button
-          className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-lg transition"          onClick={loadRandomSentence}
+          className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-lg transition"          
+          onClick={loadRandomSentence}
           title="Next (N)"
         >
           Next
