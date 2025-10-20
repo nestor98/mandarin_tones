@@ -46,21 +46,24 @@ function tokenizeChinese(text) {
 function getAcceptableTones(pinyin_no_tone, tones) {
   const valid = tones.map(t => [t]); // base: each tone itself
 
-  for (let i = 0; i < tones.length - 1; i++) {
+  for (let i = 0; i < tones.length - 2; i++) {
     const syl = pinyin_no_tone[i];
+    const syl_tone = tones[i];
     const nextTone = tones[i + 1];
 
-    // 不 (bu) → 2 before 4
-    if (syl === 'bu' && nextTone === 4) valid[i].push(2);
+    // 不 (bu4) → 2 before 4
+    if (syl === 'bu' && nextTone === 4 && syl_tone===4) valid[i].push(2);
 
-    // 一 (yi) → 2 before 4, 4 before others
-    if (syl === 'yi') {
+    // 一 (yi1) → 2 before 4, 4 before others
+    if (syl === 'yi' && syl_tone === 1) {
       if (nextTone === 4) valid[i].push(2);
       else valid[i].push(4);
     }
-
     // 3 + 3 → first becomes 2
-    if (tones[i] === 3 && nextTone === 3) valid[i].push(2);
+    if (syl_tone === 3 && nextTone === 3) valid[i].push(2);
+    // ge, just allow the two more common ones:
+    if (syl === 'ge' && syl_tone === 4) valid[i].push(5);
+    if (syl === 'ge' && syl_tone === 5) valid[i].push(4);
   }
 
   return valid;

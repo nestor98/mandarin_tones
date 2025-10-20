@@ -17,6 +17,10 @@ export default function ConfusionMatrixDashboard({ matrix }) {
   // Find max value for heatmap scaling
   const maxVal = useMemo(() => Math.max(...matrix.flat(), 1), [matrix]);
 
+
+  // Find per column max value for heatmap scaling:
+  const maxValCol = useMemo(() => Math.max(...colTotals, 1), [colTotals]);
+
   const toggleMode = () =>
     setMode((m) => (m === 'count' ? 'percent' : 'count'));
 
@@ -59,7 +63,7 @@ export default function ConfusionMatrixDashboard({ matrix }) {
                 </th>
                 {[1, 2, 3, 4, 5].map((actual) => {
                   const val = matrix[pred - 1][actual - 1];
-                  const intensity = val / maxVal;
+                  const intensity = val / colTotals[actual - 1] || 0;
                   const colTotal = colTotals[actual - 1];
                   const percent =
                     colTotal > 0 ? (val / colTotal) * 100 : 0;
