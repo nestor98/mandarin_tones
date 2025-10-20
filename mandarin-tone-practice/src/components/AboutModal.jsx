@@ -12,7 +12,7 @@ return (
             </button>
             <h2 className="text-xl font-semibold mb-4 text-gray-900">About</h2>
             <p className="text-sm text-gray-700">
-                Practice mandarin tones in context. Inspired by the tone trainer in <a href="https://www.dong-chinese.com/learn/sounds/pinyin/toneTrainer" target="_blank" rel="noreferrer" className="text-blue-500 underline">Dong Chinese</a>, where I was missing some examples with full sentences.
+                Practice mandarin tones in context. Inspired by the tone trainer in <a href="https://www.dong-chinese.com/learn/sounds/pinyin/toneTrainer" target="_blank" rel="noreferrer" className="text-blue-500 underline">Dong Chinese</a> and others, where I was missing some examples with full sentences.
             </p>
             <p className="text-sm text-gray-700 mt-3">
                 Sentences and translations are from the amazing <a href="https://tatoeba.org/" target="_blank" rel="noreferrer" className="text-blue-500 underline">Tatoeba Project</a>, licensed under{' '}
@@ -39,10 +39,7 @@ return (
                 Audios are played directly from Tatoeba and were contributed by users <a href="https://tatoeba.org/es/user/profile/fucongcong" target="_blank" rel="noreferrer" className="text-blue-500 underline">fucongcong</a> and <a href="https://tatoeba.org/es/user/profile/GlossaMatik" target="_blank" rel="noreferrer" className="text-blue-500 underline">GlossaMatik</a>. 
             </p>
             <p className="text-xs text-gray-500 mt-4">
-                Created for personal and educational use.
-            </p>
-            <p className="text-xs text-gray-500 mt-4">
-                Built with React, vite, Tailwind CSS, and the help of a friendly robot.
+                Created for personal and educational use. Built with React, vite, Tailwind CSS, and the help of a friendly robot. See the <a href="https://github.com/nestor98/mandarin_tones" target="_blank" rel="noreferrer" className="text-blue-500 underline">source code</a>.
             </p>
         </div>
     </div>
