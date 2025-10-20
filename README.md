@@ -1,5 +1,7 @@
 # Mandarin tones practice app
-Practice mandarin tones in context. Inspired by the tone trainer in <a href="https://www.dong-chinese.com/learn/sounds/pinyin/toneTrainer" target="_blank" rel="noreferrer" className="text-blue-500 underline">Dong Chinese</a>, where I was missing some examples with full sentences. Try it [here](https://nestor98.github.io/mandarin_tones/)! 
+Practice mandarin tones in context. Inspired by the tone trainer in <a href="https://www.dong-chinese.com/learn/sounds/pinyin/toneTrainer" target="_blank" rel="noreferrer" className="text-blue-500 underline">Dong Chinese</a> and others, where I was missing some examples with full sentences. 
+
+Try it [online](https://nestor98.github.io/mandarin_tones/)! Or even install it (on android) with the [apk](https://github.com/nestor98/mandarin_tones/releases)!
 
 <img width="864" height="730" alt="image" src="https://github.com/user-attachments/assets/a5bf6808-bc6c-45f0-8de5-501ad11da82a" />
 
@@ -13,4 +15,4 @@ Practice mandarin tones in context. Inspired by the tone trainer in <a href="htt
 Created for personal and educational use.
 
 ### Tools
-Built with React, vite, Tailwind CSS, and the help of a friendly robot.
+Built with React, vite, Tailwind CSS, a bit of python, and the help of a friendly robot.
