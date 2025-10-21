@@ -69,7 +69,7 @@ export default function App() {
 
   return (
 <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
-{/* pt-1 */}
+      <h1 className="sr-only">Mandarin Tone Practice</h1>
         <div 
           className="absolute pl-8 
            pt-[max(theme(spacing.4),env(safe-area-inset-top))]
