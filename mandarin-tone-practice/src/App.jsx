@@ -73,7 +73,7 @@ export default function App() {
         <div 
           className="absolute pl-8 
            pt-[max(theme(spacing.4),env(safe-area-inset-top))]
-           flex gap-0 items-center z-10"
+           flex gap-0 items-center z-20"
           title="Shēng diào = the tones of Mandarin Chinese"
         >
           <AnimatedCharacter data={shengData} size={50} delay={.0} /> 
